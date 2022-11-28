@@ -3,10 +3,13 @@ use std::io;
 use std::process;
 
 fn example() -> Result<(), Box<dyn Error>> {
+    let mut values = vec![];
     let mut rdr = csv::Reader::from_reader(io::stdin());
     for result in rdr.records() {
-        let _record = result?;
-        // println!("{:?}", record);
+        let record = result?;
+        for value in record.iter() {
+            values.push(value.to_owned());
+        }
     }
     Ok(())
 }
